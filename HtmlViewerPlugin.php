@@ -62,11 +62,23 @@ class HtmlViewerPlugin extends Omeka_Plugin_AbstractPlugin
 	
 	protected function _extractHtmlBody($html)
 	{
-		// get anything between <body> and </body> where <body can="have_as many" attributes="as required">
-		if (preg_match('/(?:<body[^>]*>)(.*)<\/body>/isU', $html, $matches)) {
-			$body = $matches[1];
+		require_once('libraries/html5lib-php/library/HTML5/Parser.php');
+		$dom = HTML5_Parser::parse($html);
+		$xpath = new DOMXPath($dom);
+		$body = $xpath->query('/html/body');
+		$html = $dom->saveHTML($body->item(0));
+		$innerHtml = $this->_domInnerHtml($dom->getElementsByTagName('body')->item(0));
+		return trim($innerHtml);
+	}
+	
+	protected function _domInnerHtml(DOMNode $element)
+	{
+		$innerHTML = "";
+		foreach ($element->childNodes as $child)
+		{ 
+			$innerHTML .= $element->ownerDocument->saveHTML($child);
 		}
-		
-		return trim($body);
+
+	    return $innerHTML; 
 	}
 }
