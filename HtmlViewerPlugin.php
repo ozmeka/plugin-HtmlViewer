@@ -71,11 +71,14 @@ class HtmlViewerPlugin extends Omeka_Plugin_AbstractPlugin
 		return trim($innerHtml);
 	}
 	
-	protected function _domInnerHTML($el) {
-		$doc = new DOMDocument();
-		$doc->appendChild($doc->importNode($el, TRUE));
-		$html = trim($doc->saveHTML());
-		$tag = $el->nodeName;
-		return preg_replace('@^<' . $tag . '[^>]*>|</' . $tag . '>$@', '', $html);
+	protected function _domInnerHtml(DOMNode $element)
+	{
+		$innerHTML = "";
+		foreach ($element->childNodes as $child)
+		{ 
+			$innerHTML .= $element->ownerDocument->saveHTML($child);
+		}
+
+	    return $innerHTML; 
 	}
 }
