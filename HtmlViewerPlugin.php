@@ -66,7 +66,7 @@ class HtmlViewerPlugin extends Omeka_Plugin_AbstractPlugin
 		$dom = HTML5_Parser::parse($html);
 		$xpath = new DOMXPath($dom);
 		$body = $xpath->query('/html/body');
-		$html = $dom->saveHTML($body->item(0));
+		$html = $dom->saveXml($body->item(0));
 		$innerHtml = $this->_domInnerHtml($dom->getElementsByTagName('body')->item(0));
 		return trim($innerHtml);
 	}
@@ -76,7 +76,7 @@ class HtmlViewerPlugin extends Omeka_Plugin_AbstractPlugin
 		$innerHTML = "";
 		foreach ($element->childNodes as $child)
 		{ 
-			$innerHTML .= $element->ownerDocument->saveHTML($child);
+			$innerHTML .= $element->ownerDocument->saveXml($child);
 		}
 
 	    return $innerHTML; 
