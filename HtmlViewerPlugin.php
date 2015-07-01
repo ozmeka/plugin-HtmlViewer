@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Search Tweaks for Omeka
+ * HTML Viewer for Omeka
  * @copyright Copyright 2015 eResearch at University of Technnology, Sydney
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU GPLv3
  */
