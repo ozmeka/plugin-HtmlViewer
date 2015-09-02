@@ -1,4 +1,4 @@
-<div id="doctext-display">
+<div style="overflow-y:auto; height:450px;" id="doctext-display">  
     <h2><?php echo __('Document Texts'); ?></h2>
 
     <table>
